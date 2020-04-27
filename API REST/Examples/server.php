@@ -1,7 +1,37 @@
 <?php
 
-$user = array_key_exists('PHP_AUTH_USER', $_SERVER ) ?  $_SERVER['PHP_AUTH_USER'] : '';
-$password = array_key_exists('PHP_AUTH_PW', $_SERVER ) ?  $_SERVER['PHP_AUTH_PW'] : '';
+header( 'Content-Type: application/json' );
+
+if ( 
+    # La letra X se refiere a encabezados no estandar
+	!array_key_exists('HTTP_X_HASH', $_SERVER) || 
+	!array_key_exists('HTTP_X_TIMESTAMP', $_SERVER) || 
+	!array_key_exists('HTTP_X_UID', $_SERVER)  
+    )  {
+		header( 'Status-Code: 403' );
+	
+		echo json_encode(
+			[
+				'error' => "No autorizado",
+			]
+		);
+		
+		die;
+    }
+    
+list( $hash, $uid, $timestamp) = [
+    $_SERVER['HTTP_X_HASH'],
+    $_SERVER['HTTP_X_TIMESTAMP'],
+    $_SERVER['HTTP_X_UID'],
+];
+
+$secret = 'Sh!! No se lo cuentes a nadie!';
+
+$newHash = sha1($uid.$timestamp.$secret);
+
+if($newHash !== $hash) {
+    die;
+}
 
 // Se define los recursos disponibles
 $allowedResorceTypes = [
