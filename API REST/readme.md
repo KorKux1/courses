@@ -200,5 +200,5 @@ Es muy común tener comunicaciones con API REST al momento de tener una aplicaci
 
 ### Examen
 
-[Examen del Curso de API REST.pdf](Curso%20de%20API%20REST/Examen_del_Curso_de_API_REST.pdf)
+[Examen del Curso de API REST.pdf](resources/Examen_del_Curso_de_API_REST.pdf)
 
