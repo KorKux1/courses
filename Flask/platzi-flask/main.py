@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response, redirect
+from flask import Flask, request, make_response, redirect, render_template
 
 app = Flask(__name__)  # __name__ indica que el nombre de la aplicación será el nombre del archivo
 
@@ -13,4 +13,4 @@ def index():
 @app.route('/hello')
 def hello():
     user_ip = request.cookies.get('user_ip')
-    return "Hello, World Flask, tú IP es: {}".format(user_ip)
+    return render_template('hello.html', user_ip=user_ip)
