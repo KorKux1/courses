@@ -13,8 +13,14 @@
 
 
 {% block content %}
+    {% if username %}
+        Bienvenido, {{username | capitalize}}
+    {% endif %}
+    
+
+
     {% if user_ip %}
-    <h1>Hello, World. Tú IP es: {{ user_ip }}</h1>
+    <h3>Hello, World. Tú IP es: {{ user_ip }}</h3>
     {% else %}
     <a href="{{ url_for('index')}}">Ir a inicio</a>
     {% endif %}
