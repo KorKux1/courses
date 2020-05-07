@@ -64,5 +64,15 @@ def hello():
     return render_template('hello.html', **context) #Los ** expanden el diccionario.
 
 
-
+""""
+COMMANDS
+"""
+@app.cli.command()
+def test():
+    """"
+    El discover buscará todas las pruebas en la carpeta test para que el TextTestRunner las corra
+    El decorador permite poder ejecutar Flash test desde la consola de flask 
+    """
+    tests = unittest.TestLoader().discover('tests')
+    unittest.TextTestRunner().run(tests)
 
