@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% import "macros.html" as macros %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block title %}
+    {{super()}} {# 
+        El super() me trae el contenido definido en el bloque. Para así no sobreescribir
+        todo el contenido  
+    #}
+    Bienvenido
+{% endblock %}
+
+
+{% block content %}
+    {% if username %}
+        Bienvenido, {{username | capitalize}}
+    {% endif %}
+    
+
+
+    {% if user_ip %}
+    <h3>Hello, World. Tú IP es: {{ user_ip }}</h3>
+    {% else %}
+    <a href="{{ url_for('index')}}">Ir a inicio</a>
+    {% endif %}
+
+
+    <div class="container">
+        <h2>Crear una nueva forma</h2>
+        {{ wtf.quick_form(todo_form) }}
+    </div>
+    <ul class="list-group">
+        {% for todo in todos %}
+            {{macros.render_todo(todo, delete_form, update_form)}}
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+
+   
+    
+    
+
