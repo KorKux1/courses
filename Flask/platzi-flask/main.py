@@ -3,9 +3,9 @@ from flask_bootstrap import Bootstrap
 from flask_login import login_required, current_user
 
 from app import create_app
-from app.forms import TodoForm
+from app.forms import TodoForm, DeleteTodoForm
 
-from app.firestore_service import get_users, get_todos, todo_put
+from app.firestore_service import get_users, get_todos, todo_put, todo_deleate
 
 import unittest
 
@@ -41,13 +41,14 @@ def hello():
 
     todo_form = TodoForm()
 
-    
+    delete_form = DeleteTodoForm()
 
     context = {
         'user_ip':user_ip,
         'todos': get_todos(user_id=username),
         'username': username,
-        'todo_form': todo_form
+        'todo_form': todo_form,
+        'delete_form': delete_form
     }
 
     if todo_form.validate_on_submit():
@@ -57,6 +58,14 @@ def hello():
 
     return render_template('hello.html', **context) #Los ** expanden el diccionario.
 
+
+
+@app.route('/todos/delete/<todo_id>', methods=['POST', 'GET'])
+def delete(todo_id):
+   user_id = current_user.id
+   todo_deleate(user_id=user_id, todo_id=todo_id)
+
+   return redirect(url_for('hello'))
 
 """"
 COMMANDS

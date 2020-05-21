@@ -38,3 +38,8 @@ def get_todos(user_id):
 def todo_put(user_id, description):
     todo_collection_ref = db.collection('users').document(user_id).collection('todos')
     todo_collection_ref.add({'description':description, 'done': False})
+
+def todo_deleate(user_id, todo_id):
+    todo_ref = db.document(f'users/{user_id}/todos/{todo_id}')
+    todo_ref.delete()
+    # todo_ref = db.collection('users').document(user_id).collection('todos').document(todo_id)
